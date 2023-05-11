@@ -11,7 +11,7 @@ var bodyparser = require("body-parser");
 //Initialise
 const   booky = express();
 booky.use(bodyparser.urlencoded ({extended : true}));
-booky.use (bodyparser.json);
+booky.use (bodyparser.json());
 
 
  /*
@@ -176,17 +176,55 @@ Method      :        POST
  */  
 
 booky.post("/book/new", (req , res) => {
-    const newbook = req.body;
+    
+     const newbook = req.body;
+       const Checkbook = Database.books.filter((books ) => books.ISBN === newbook.ISBN);
+       if(Checkbook.length === 0) 
+     {
     Database.books.push(newbook);
      return res.json({updatedBooks :Database.books });
-    
+     }
+     else 
+        return res.json({error : `Book of ${newbook.ISBN} is already excits in Database`});
 
 
 } );
 
+ /*
+ ROuter     :       /author/new
+Dsescription:      To add New Authors
+Access      :       PUBLIC
+Parameters  :       None
+Method      :        POST 
+ */  
+
+booky.post("/author/new", (req,res) => {
+    const newauthor = req.body;
+    Database.author.push(newauthor);
+    return res.json({updatedAuthors :Database.author });   
+} )
+
+ /*
+ ROuter     :       /publications/new
+Dsescription:      To add New publications
+Access      :       PUBLIC
+Parameters  :       None
+Method      :        POST 
+ */  
+
+booky.post("/publications/new", (req,res) => {
+     const newpublication = req.body;
+     Database.Publications.push(newpublication);
+     return res.json({updatedPublications :Database.Publications });
+});
 
 
-booky.listen(3001 , () => {
+
+
+
+
+
+booky.listen(4000 , () => {
 
 
     console.log('server is running successfully');

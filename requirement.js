@@ -32,7 +32,9 @@
  
  //POST REQUEST
         
-       
+       1.ADD  NEW BOOK -- DONE
+       2.ADD NEW PUBLICATION -- 
+       3.ADD NEW AUTHOR -- DONE
  
 
 
