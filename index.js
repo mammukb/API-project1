@@ -1,10 +1,19 @@
-const express = require('express');
+const express = require("express");
+var bodyparser = require("body-parser");
+
+
+
+
 //Database
       const Database = require("./database");
-const e = require('express');
+
 
 //Initialise
 const   booky = express();
+booky.use(bodyparser.urlencoded ({extended : true}));
+booky.use (bodyparser.json);
+
+
  /*
  ROuter     :       /
 Dsescription:      To get all the books 
@@ -155,10 +164,31 @@ booky.get("/publications/book/:isbn" , (req , res)  =>
     else 
     return res.json({ Publications : getspecifiedpub} ) ;
  });
+ 
+     // POST request
+ 
+ /*
+ ROuter     :       /book/new
+Dsescription:      To add New books
+Access      :       PUBLIC
+Parameters  :       None
+Method      :        POST 
+ */  
+
+booky.post("/book/new", (req , res) => {
+    const newbook = req.body;
+    Database.books.push(newbook);
+     return res.json({updatedBooks :Database.books });
+    
+
+
+} );
 
 
 
-booky.listen(5000 , () => {
+booky.listen(3001 , () => {
+
+
     console.log('server is running successfully');
 });
 
