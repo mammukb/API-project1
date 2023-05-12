@@ -1,5 +1,9 @@
+require("dotenv").config(); 
+
 const express = require("express");
 var bodyparser = require("body-parser");
+const mongoose = require("mongoose");
+
 
 
 
@@ -9,10 +13,20 @@ var bodyparser = require("body-parser");
 const { books } = require("./database");
 
 
+
 //Initialise
 const   booky = express();
 booky.use(bodyparser.urlencoded ({extended : true}));
 booky.use (bodyparser.json());
+  // connecting mongoose with mongodb
+  mongoose.connect( process.env.MONGODB_URL,
+   {
+   /* useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false*/
+  }).then (() => console.log("connection successful") ); 
+
 
 
  /*
