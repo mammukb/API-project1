@@ -30,11 +30,21 @@
       To get Specific Publication  --  DONE
       To get a list of publications based on the books -- DONE
  
- //POST REQUEST
+    --> POST REQUEST
         
        1.ADD  NEW BOOK -- DONE
        2.ADD NEW PUBLICATION -- 
        3.ADD NEW AUTHOR -- DONE
+
+  --> PUT REQUEST
+
+   1.UPDATE BOOK if author is changed -DONE
+
+
+   --> DELETE REQUEST
+     
+    1 .Delete BOOK
+    2 Delete author 
  
 
 

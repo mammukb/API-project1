@@ -6,6 +6,7 @@ var bodyparser = require("body-parser");
 
 //Database
       const Database = require("./database");
+const { books } = require("./database");
 
 
 //Initialise
@@ -217,6 +218,123 @@ booky.post("/publications/new", (req,res) => {
      Database.Publications.push(newpublication);
      return res.json({updatedPublications :Database.Publications });
 });
+
+/*
+ ROuter     :       /publications/update/book
+Dsescription:      Update or add New publications
+Access      :       PUBLIC
+Parameters  :       isbn
+Method      :        PUT 
+ */ 
+
+booky.put ("/publications/update/book/:isbn", (req,res) => {
+   // Update the publication database
+   Database.Publications.forEach ((pub) => {
+    if(pub.id === req.body.pubID){
+       return  pub.books.push(req.params.isbn);
+    }
+
+   });
+
+
+   Database.books.forEach ((book) => {
+    if(book.ISBN === parseInt( req.params.isbn)){
+        
+         return book.publications = req.body.pubID ;
+      
+    }
+
+
+
+})
+
+   return res.json (
+    {
+        books :Database.books,
+        publications : Database.Publications,
+        message : "Succesfully Updated"
+    }
+   )
+
+
+});
+
+   // DELETE REQUEST
+
+/*
+ ROuter     :      /book/delete/
+Dsescription:      To delete a book
+Access      :       PUBLIC
+Parameters  :       isbn
+Method      :        Delete
+ */ 
+
+booky.delete ("/book/delete/:isbn" ,(req ,res) => {
+    const updatedbook = Database.books.filter ((book) => book.ISBN !== req.params.isbn);
+    Database.books = updatedbook
+    return res.json({updatedBooks : Database.books});     
+   
+
+})
+
+/*
+ ROuter     :      /author/delete/
+Dsescription:      To delete a AUTHOR
+Access      :       PUBLIC
+Parameters  :       id
+Method      :        Delete
+ */ 
+
+booky.delete ("/author/delete/:id",(req,res) => {
+
+    const updatedauthor = Database.author.filter ((author) => author.id !== req.params.id);
+    Database.author = updatedauthor;
+    return res.json({updatedAuthors : Database.author});
+}
+)
+
+/*
+ ROuter     :      /book/delete/author
+Dsescription:      Delete an author from book and vice versa
+Access      :       PUBLIC
+Parameters  :       isbn,authorID
+Method      :        Delete
+ */ 
+
+  booky.delete("/book/delete/author/:isbn/:authorID" ,(req ,res) => {
+   //Update the book Database 
+         Database.books.forEach((book) => {
+         if(book.ISBN === req.params.isbn)
+               {
+                 const newAUthorList = book.authors.filter ((authorid) => authorid !==  parseInt(req.params.authorID) );
+                 book.authors = newAUthorList ;             
+               } 
+               return ; 
+         });
+
+         //update author
+         Database.author.forEach((author) => {
+       if(author.id === parseInt(req.params.authorID)){
+      const newbookList = author.books.filter((bkid) => bkid !== parseInt(req.params.isbn));
+        author.books = newbookList ;
+        
+       }
+       return ;
+         });
+
+         return res.json({
+         books : Database.books,
+         author : Database.author,
+        message : "Succesfully Deleted"
+   
+
+         })
+  })
+ 
+  
+
+
+
 
 
 

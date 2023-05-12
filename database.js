@@ -7,7 +7,7 @@
     language : "en",
     numPage : 250,
     authors : [1,2],
-    publication : [1],
+    publications : [1],
     category : ["tech","space", "education"]
   },
    {
@@ -17,7 +17,7 @@
     language : "mal",
     numPage : 300,
     authors : [2],
-    publication : [1],
+    publications : [1],
     category : ["story","drama", "education"]
    }
    
@@ -48,7 +48,12 @@
       id :1,
       name :"Writex",
       books : ["12450book" , "1890book"]
-    }
+    },
+     {
+       id : 2,
+       name : "writex", 
+       books : []
+     }
  ]
 
 
