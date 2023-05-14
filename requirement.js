@@ -45,6 +45,12 @@
      
     1 .Delete BOOK
     2 Delete author 
+
+
+//Operators 
+    
+
+
  
 
 
